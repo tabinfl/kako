@@ -34,10 +34,9 @@ class Processor(multiprocessing.Process):
             # When there is data in the queue, attempt to pull it and write to
             # the output file. If something goes awry, requeue the message
             # prior to throwing the exception.
-            if self.results.qsize() > 0:
+            if not self.results.empty():
                 self.log.info(
-                    '%s interaction captures in the queue',
-                    self.results.qsize()
+                    'There are interaction captures in the queue',
                 )
                 interaction = self.results.get()
                 self.log.debug('Attempting to write interaction to file')
